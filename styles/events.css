@@ -1,0 +1,116 @@
+:root {
+  --primary-color: #d41149;
+  --secondary-color: #d4116c;
+  --dark-color: #800d2e;
+  --black: #000000;
+  --light-color: #f8f9fa;
+  --accent-color: #ff6b6b;
+  --text-color: #333;
+  --text-light: #777;
+}
+
+/* EVENTS PAGE STYLES */
+.events-header {
+  padding: 120px 0 60px;
+  text-align: center;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("/imgs/2.gif") no-repeat center center/cover;
+  color: white;
+}
+
+.events-header h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.events-header p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.events-filter {
+  padding: 40px 0;
+  background-color: var(--light-color);
+}
+
+.filter-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-end;
+}
+
+.filter-group {
+  flex: 1;
+  min-width: 200px;
+}
+
+.filter-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.custom-dropdown {
+  position: relative;
+  width: 100%;
+  background-color: #000000fa;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='2' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  border: 1px solid #444;
+  border-radius: 5px;
+  color: var(--light-color, #fff);
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.custom-selected {
+  padding: 12px;
+  background-color: #000000ad;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='2' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  border-radius: 5px;
+}
+
+.custom-options {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #1a1a1a;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='2' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  border: 1px solid #333;
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.custom-options li {
+  padding: 10px 12px;
+  transition: background 0.2s;
+  color: var(--light-color, #fff);
+}
+
+.custom-options li:hover,
+.custom-options li.active {
+  background-color: var(--text-color);
+}
+
+/* CLOSE DROPDOWN ARROW INDICATOR */
+.custom-selected::after {
+  content: "▼";
+  float: right;
+  margin-left: 10px;
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+.all-events {
+  padding: 60px 0;
+}
+
+/* MAKE THE EVENTS GRID SHOW MORE EVENTS ON THE EVENTS PAGE */
+.events-page .events-grid {
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}

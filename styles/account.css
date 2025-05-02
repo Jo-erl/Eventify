@@ -1,0 +1,143 @@
+/* PROFILE DROPDOWN */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.btn-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    border-radius: 30px;
+    border: 2px solid var(--primary-color);
+    font-weight: 600;
+    transition: all 0.3s ease;
+    background: transparent;
+    color: var(--light-color);
+    cursor: pointer;
+}
+
+.btn-profile:hover {
+    background-color: var(--primary-color);
+    color: white !important;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-content a {
+    color: var(--light-color);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--primary-color);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* ACCOUNT SECTION */
+.account-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 0 80px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='2' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+}
+
+.account-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.account-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.account-header h2 {
+    font-size: 2.2rem;
+    color: var(--light-color);
+    margin-bottom: 10px;
+}
+
+.account-header p {
+    color: var(--text-light);
+    font-size: 1rem;
+}
+
+.account-info {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+}
+
+.info-card {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.info-card h3 {
+    color: var(--light-color);
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+}
+
+.info-item {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.info-label {
+    font-weight: 600;
+    color: var(--primary-color);
+    min-width: 100px;
+}
+
+.info-value {
+    color: var(--light-color);
+}
+
+.events-list {
+    color: var(--light-color);
+}
+
+@media (max-width: 768px) {
+    .profile-text {
+        display: none;
+    }
+    
+    .btn-profile {
+        padding: 8px;
+    }
+    
+    .account-container {
+        padding: 30px 20px;
+        width: 100%;
+    }
+}

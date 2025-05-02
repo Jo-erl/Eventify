@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventify | Your Concert Ticket Hub</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/events.css">
+    <link rel="stylesheet" href="styles/booking.css">
+    <link rel="stylesheet" href="styles/about.css">
+    <link rel="stylesheet" href="styles/contact.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta name="description"
+        content="Eventify is your premier destination for concert tickets and live music experiences">
+    <meta name="robots" content="index, follow">
+    <!-- ALTERNATIVES: NOINDEX, NOFOLLOW, NOARCHIVE, ETC. -->
+    <link rel="canonical" href="https://www.quodepalette.com/">
+    <meta name="language" content="English">
+    <meta name="author" content="Quode Palette">
+    <meta name="keywords" content="music, concerts, artists, tickets, videos">
+    <link rel="icon" href="imgs/favicon.png" />
+    <!-- OPEN GRAPH / SOCIAL MEDIA -->
+    <meta property="og:title" content="Eventify | Your Concert Ticket Hub">
+    <meta property="og:description"
+        content="We design & develop custom websites and web applications to elevate your digital presence">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://quodepalette.com">
+    <meta property="og:site_name" content="Quode Palette">
+</head>
+
+<body>
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Eventify <span class="dot">●</span></a>
+            <div class="nav-links">
+                <a href="index.html" class="active">Home</a>
+                <a href="events.html">Events</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="login.html" class="btn-login">Login</a>
+            </div>
+            <button class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container">
+            <h1>Experience Live Music Like Never Before</h1>
+            <p>Book tickets to the hottest concerts in your city</p>
+            <button class="btn-primary"
+                onclick="document.getElementById('featured').scrollIntoView({ behavior: 'smooth' })">Browse
+                Events</button>
+        </div>
+    </section>
+
+    <!-- FEATURED EVENTS -->
+    <section class="featured-events" id="featured">
+        <div class="container">
+            <h2>Featured Concerts</h2>
+            <div class="events-grid">
+                <!-- ADDED HERE WITH EVENTS.JS -->
+            </div>
+            <div class="view-all-container">
+                <a href="events.html" class="btn-primary">All Events</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- TOP TRENDING ARTISTS -->
+    <section class="trending-artists">
+        <div class="container">
+            <h2>Top Trending Artists</h2>
+            <div class="artists-grid">
+                <!-- ADDED HERE WITH ARTISTS.JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- VIDEOS SECTION -->
+    <section class="videos-section">
+        <div class="container">
+            <h2>Latest Videos</h2>
+            <div class="video-layout">
+                <!-- MAIN VIDEO PLAYER -->
+                <div class="main-video">
+                    <div class="video-container">
+                        <iframe id="main-video-player" width="560" height="315"
+                            src="https://www.youtube.com/embed/YPqOUmqPin0?si=-_TVefhTWNjGd3Vi"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                        </iframe>
+                    </div>
+                    <h3 class="main-video-title">Name The Flag Quiz Game</h3>
+                </div>
+
+                <!-- VIDEO THUMBNAILS LIST -->
+                <div class="video-thumbnails">
+                    <!-- THUMBNAIL 1 -->
+                    <div class="thumbnail-item active"
+                        data-video-src="https://www.youtube.com/embed/FpkX2VdXZJs?si=85Cj6SVR_VVt-h4d"
+                        data-title="Name The Flag Quiz Game">
+                        <img src="https://img.youtube.com/vi/YPqOUmqPin0/hqdefault.jpg" alt="Taylor Swift">
+                        <h4>Name The Flag Quiz Game</h4>
+                    </div>
+
+                    <!-- THUMBNAIL 2 -->
+                    <div class="thumbnail-item"
+                        data-video-src="https://www.youtube.com/embed/SNIsb7VnkX8?si=kkMsV6mSMuX-pbAS"
+                        data-title="Medal of Honor Warfighter Gameplay">
+                        <img src="https://img.youtube.com/vi/SNIsb7VnkX8/hqdefault.jpg" alt="J.Cole">
+                        <h4>Medal of Honor Warfighter Gameplay</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- NEWSLETTER -->
+    <section class="newsletter">
+        <div class="container">
+            <h2 class="nl-h2">Stay Updated</h2>
+            <p class="nl-p">Subscribe to get notified about upcoming events</p>
+            <form>
+                <input type="email" placeholder="Your email address">
+                <button type="submit" class="btn-primary">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- BACK TO TOP BUTTON -->
+    <button id="backToTopBtn" class="button" aria-label="Back to top">
+        <svg viewBox="0 0 384 512" class="svgIcon">
+            <path
+                d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z">
+            </path>
+        </svg>
+    </button>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <a href="index.html" class="logo">Eventify <span class="dot">●</span></a><br>
+                    <hr class="footer-logo-line">
+                    <p>Your premier destination for concert tickets and live music experiences.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; <span id="current-year"></span> Eventify. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+
+    <script src="scripts/nav.js"></script>
+    <script src="scripts/events.js"></script>
+    <script src="scripts/booking.js"></script>
+    <script src="scripts/artists.js"></script>
+    <script src="scripts/videos.js"></script>
+    <script src="scripts/b2t.js"></script>
+    <script src="scripts/dropdown.js"></script>
+    <script src="scripts/contact.js"></script>
+    <script src="scripts/footer.js"></script>
+
+</body>
+
+</html>

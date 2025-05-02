@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - Eventify</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/events.css">
+    <link rel="stylesheet" href="styles/booking.css">
+    <link rel="stylesheet" href="styles/about.css">
+    <link rel="stylesheet" href="styles/contact.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta name="description" content="Eventify is your premier destination for concert tickets and live music experiences">
+    <meta name="robots" content="index, follow">
+    <!-- ALTERNATIVES: NOINDEX, NOFOLLOW, NOARCHIVE, ETC. -->
+    <link rel="canonical" href="https://www.quodepalette.com/">
+    <meta name="language" content="English">
+    <meta name="author" content="Quode Palette">
+    <meta name="keywords" content="music, concerts, artists, tickets, videos">
+    <link rel="icon" href="imgs/favicon.png" />
+    <!-- OPEN GRAPH / SOCIAL MEDIA -->
+    <meta property="og:title" content="Eventify | Your Concert Ticket Hub">
+    <meta property="og:description"
+        content="We design & develop custom websites and web applications to elevate your digital presence">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://quodepalette.com">
+    <meta property="og:site_name" content="Quode Palette">
+</head>
+
+<body>
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Eventify</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="events.html" class="active">Events</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="login.html" class="btn-login">Login</a>
+            </div>
+            <button class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- EVENTS HEADER -->
+    <section class="events-header">
+        <div class="container">
+            <h1>Upcoming Concerts</h1>
+            <p>Find your next unforgettable music experience</p>
+        </div>
+    </section>
+
+    <!-- EVENTS FILTER -->
+    <section class="events-filter">
+        <div class="container">
+            <div class="filter-options">
+                <!-- GENRE DROPDOWN -->
+                <div class="filter-group">
+                    <label for="genre-dropdown">Genre</label>
+                    <div class="custom-dropdown" id="genre-dropdown" data-value="all">
+                        <div class="custom-selected">All Genres</div>
+                        <ul class="custom-options">
+                            <li data-value="all" class="active">All Genres</li>
+                            <li data-value="rock">Rock</li>
+                            <li data-value="pop">Pop</li>
+                            <li data-value="jazz">Jazz</li>
+                            <li data-value="electronic">Electronic</li>
+                            <li data-value="hiphop">Hip Hop</li>
+                        </ul>
+                    </div>
+                </div>
+    
+                <!-- DATE DROPDOWN -->
+                <div class="filter-group">
+                    <label for="date-dropdown">Date</label>
+                    <div class="custom-dropdown" id="date-dropdown" data-value="all">
+                        <div class="custom-selected">All Dates</div>
+                        <ul class="custom-options">
+                            <li data-value="all" class="active">All Dates</li>
+                            <li data-value="this-week">This Week</li>
+                            <li data-value="this-month">This Month</li>
+                            <li data-value="next-month">Next Month</li>
+                        </ul>
+                    </div>
+                </div>
+    
+                <!-- PRICE RANGE DROPDOWN -->
+                <div class="filter-group">
+                    <label for="price-dropdown">Price Range</label>
+                    <div class="custom-dropdown" id="price-dropdown" data-value="all">
+                        <div class="custom-selected">All Prices</div>
+                        <ul class="custom-options">
+                            <li data-value="all" class="active">All Prices</li>
+                            <li data-value="0-50">$0 - $50</li>
+                            <li data-value="50-100">$50 - $100</li>
+                            <li data-value="100+">$100+</li>
+                        </ul>
+                    </div>
+                </div>
+    
+                <!-- FILTER BUTTON -->
+                <button class="btn-primary" id="apply-filters">Apply Filters</button>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ALL EVENTS -->
+    <section class="all-events">
+        <div class="container">
+            <div class="events-grid">
+                <!-- EVENTS WILL BE LOADED HERE WITH JAVASCRIPT -->
+            </div>
+        </div>
+    </section>
+
+    <!-- BACK TO TOP -->
+    <button id="backToTopBtn" class="button" aria-label="Back to top">
+        <svg viewBox="0 0 384 512" class="svgIcon">
+            <path
+                d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z">
+            </path>
+        </svg>
+    </button>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <a href="index.html" class="logo">Eventify <span class="dot">●</span></a><br>
+                    <hr class="footer-logo-line">
+                    <p>Your premier destination for concert tickets and live music experiences.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        <div class="copyright">
+            <p>&copy; <span id="current-year"></span> Eventify. All rights reserved.</p>
+        </div>
+        </div>
+    </footer>
+
+
+    <script src="scripts/nav.js" defer></script>
+    <script src="scripts/events.js" defer></script>
+    <script src="scripts/booking.js" defer></script>
+    <script src="scripts/artists.js" defer></script>
+    <script src="scripts/videos.js" defer></script>
+    <script src="scripts/b2t.js" defer></script>
+    <script src="scripts/contact.js" defer></script>
+    <script src="scripts/footer.js" defer></script>
+</body>
+
+</html>

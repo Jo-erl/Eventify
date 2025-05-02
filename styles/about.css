@@ -1,0 +1,138 @@
+:root {
+  --primary-color: #d41149;
+  --secondary-color: #d4116c;
+  --dark-color: #800d2e;
+  --black: #000000;
+  --light-color: #f8f9fa;
+  --accent-color: #ff6b6b;
+  --text-color: #333;
+  --text-light: #777;
+}
+
+/* ABOUT PAGE STYLES */
+.about-content {
+  padding: 60px 0;
+  color: var(--light-color);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.about-text h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: var(--primary-color);
+}
+
+.about-text p {
+  margin-bottom: 20px;
+  line-height: 1.8;
+}
+
+.about-text ul {
+  margin: 25px 0;
+  padding-left: 20px;
+}
+
+.about-text li {
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.about-image img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.team-section {
+  padding: 60px 0;
+  background-color: #e0e0e0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='2' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  text-align: center;
+}
+
+.team-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+  color: var(--text-color);
+  position: relative;
+  display: inline-block;
+}
+
+.team-section h2::after {
+  content: "";
+  position: absolute;
+  width: 50%;
+  height: 4px;
+  background-color: var(--primary-color);
+  bottom: -10px;
+  left: 25%;
+  border-radius: 2px;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.team-member {
+  background-color: #000000fa;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='2' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  padding: 30px;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.team-member:hover {
+  transform: translateY(-10px);
+}
+
+.member-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 20px;
+  border: 3px solid var(--primary-color);
+}
+
+.member-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.team-member h3 {
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+  color: var(--light-color);
+}
+
+.position {
+  color: var(--primary-color);
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.bio {
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+}

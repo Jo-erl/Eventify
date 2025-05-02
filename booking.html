@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Tickets - Eventify</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/events.css">
+    <link rel="stylesheet" href="styles/booking.css">
+    <link rel="stylesheet" href="styles/about.css">
+    <link rel="stylesheet" href="styles/contact.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta name="description"
+        content="Eventify is your premier destination for concert tickets and live music experiences">
+    <meta name="robots" content="index, follow">
+    <!-- ALTERNATIVES: NOINDEX, NOFOLLOW, NOARCHIVE, ETC. -->
+    <link rel="canonical" href="https://www.quodepalette.com/">
+    <meta name="language" content="English">
+    <meta name="author" content="Quode Palette">
+    <meta name="keywords" content="music, concerts, artists, tickets, videos">
+    <link rel="icon" href="imgs/favicon.png" />
+    <!-- OPEN GRAPH / SOCIAL MEDIA -->
+    <meta property="og:title" content="Eventify | Your Concert Ticket Hub">
+    <meta property="og:description"
+        content="We design & develop custom websites and web applications to elevate your digital presence">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://quodepalette.com">
+    <meta property="og:site_name" content="Quode Palette">
+</head>
+
+<body>
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Eventify</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="events.html">Events</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="login.html" class="btn-login">Login</a>
+            </div>
+            <button class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- BOOKING HEADER -->
+    <section class="booking-header">
+        <div class="container">
+            <h1>Book Your Tickets</h1>
+            <p>Secure your spot at the event</p>
+        </div>
+    </section>
+
+    <!-- BOOKING FORM -->
+    <section class="booking-form">
+        <div class="container">
+            <div class="booking-container">
+                <div class="event-summary">
+                    <h2 id="booking-event-title">Event Title</h2>
+                    <div class="event-meta">
+                        <div class="meta-item">
+                            <i class="far fa-calendar-alt"></i>
+                            <span id="booking-event-date">Date</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span id="booking-event-location">Location</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-tag"></i>
+                            <span id="booking-event-price">Price</span>
+                        </div>
+                    </div>
+                    <div class="event-image">
+                        <img id="booking-event-image" src="" alt="Event Image">
+                    </div>
+                </div>
+
+                <form class="form">
+                    <h2>Your Information</h2>
+
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" required placeholder="Enter your full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required placeholder="Enter your email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" required placeholder="Enter your phone number">
+                    </div>
+
+                    <!-- CUSTOM TICKETS DROPDOWN -->
+                    <div class="form-group">
+                        <label for="tickets">Number of Tickets</label>
+                        <div class="custom-dropdown" data-name="tickets">
+                            <div class="custom-selected">1</div>
+                            <ul class="custom-options">
+                                <li data-value="1" class="active">1</li>
+                                <li data-value="2">2</li>
+                                <li data-value="3">3</li>
+                                <li data-value="4">4</li>
+                                <li data-value="5">5</li>
+                            </ul>
+                        </div>
+                        <input type="hidden" name="tickets" id="tickets" value="1">
+                    </div>
+
+                    <!-- CUSTOM PAYMENT DROPDOWN -->
+                    <div class="form-group">
+                        <label for="payment">Payment Method</label>
+                        <div class="custom-dropdown" data-name="payment">
+                            <div class="custom-selected">Credit Card</div>
+                            <ul class="custom-options">
+                                <li data-value="credit" class="active">Credit Card</li>
+                                <li data-value="debit">Debit Card</li>
+                                <li data-value="paypal">PayPal</li>
+                            </ul>
+                        </div>
+                        <input type="hidden" name="payment" id="payment" value="credit">
+                    </div>
+
+                    <button type="submit" class="btn-primary">Complete Booking</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- BACK TO TOP -->
+    <button id="backToTopBtn" class="button" aria-label="Back to top">
+        <svg viewBox="0 0 384 512" class="svgIcon">
+            <path
+                d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z">
+            </path>
+        </svg>
+    </button>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <a href="index.html" class="logo">Eventify <span class="dot">●</span></a><br>
+                    <hr class="footer-logo-line">
+                    <p>Your premier destination for concert tickets and live music experiences.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; <span id="current-year"></span> Eventify. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script src="scripts/nav.js" defer></script>
+    <script src="scripts/booking.js" defer></script>
+    <script src="scripts/b2t.js" defer></script>
+    <script src="scripts/dropdown.js" defer></script>
+    <script src="scripts/footer.js" defer></script>
+</body>
+
+</html>
