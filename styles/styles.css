@@ -498,6 +498,64 @@ a {
   font-weight: 600;
 }
 
+@media (max-width: 768px) {
+  .trending-artists {
+    padding: 50px 20px;
+  }
+
+  .trending-artists h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+
+  .artists-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 20px;
+  }
+
+  .artist-image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .artist-info h3 {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .trending-artists {
+    padding: 40px 15px;
+  }
+
+  .trending-artists h2 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+  }
+
+  .artists-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .artist-card {
+    padding: 15px;
+  }
+
+  .artist-image {
+    width: 100px;
+    height: 100px;
+  }
+
+  .artist-info h3 {
+    font-size: 1rem;
+  }
+
+  .artist-genre {
+    font-size: 0.8rem;
+  }
+}
+
 /*------------------------------------------------------------------------------*/
 /* VIDEOS SECTION - MAIN + THUMBNAILS LAYOUT */
 .videos-section {
