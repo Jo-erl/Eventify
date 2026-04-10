@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Eventify</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="https://res.cloudinary.com/dkds78kb3/image/upload/v1775841898/favicon-eventify_p7uxhy.png">
+
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --c-bg: #080808;
+            --c-surface: #111111;
+            --c-surface2: #1a1a1a;
+            --c-border: rgba(255, 255, 255, 0.08);
+            --c-text: #f0ede6;
+            --c-muted: #888780;
+            --c-accent: #e8c84a;
+            --c-accent2: #ff5e3a;
+            --c-glow: rgba(232, 200, 74, 0.15);
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+            --nav-h: 72px;
+            --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--c-bg);
+            color: var(--c-text);
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--c-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--c-accent);
+            border-radius: 2px;
+        }
+
+        /* ─── NAV ─── */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            height: var(--nav-h);
+            display: flex;
+            align-items: center;
+            padding: 0 clamp(1.5rem, 5vw, 4rem);
+            background: rgba(8, 8, 8, 0.9);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--c-border);
+        }
+
+        .nav-inner {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--c-text);
+            text-decoration: none;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo .dot {
+            color: var(--c-accent);
+            font-size: 0.6rem;
+            position: relative;
+            top: -6px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--c-muted);
+            text-decoration: none;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--c-accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s var(--ease);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--c-text);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            transform: scaleX(1);
+        }
+
+        .btn-login {
+            font-family: var(--font-mono) !important;
+            font-size: 0.72rem !important;
+            padding: 8px 20px;
+            border: 1px solid var(--c-accent) !important;
+            color: var(--c-accent) !important;
+            border-radius: 2px;
+            transition: background 0.2s, color 0.2s !important;
+        }
+
+        .btn-login::after {
+            display: none !important;
+        }
+
+        .btn-login:hover {
+            background: var(--c-accent) !important;
+            color: var(--c-bg) !important;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 1.5px;
+            background: var(--c-text);
+            transition: 0.3s;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: translateY(6.5px) rotate(45deg);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: translateY(-6.5px) rotate(-45deg);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: var(--nav-h);
+            left: 0;
+            right: 0;
+            background: rgba(8, 8, 8, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--c-border);
+            padding: 2rem clamp(1.5rem, 5vw, 4rem);
+            flex-direction: column;
+            gap: 1.5rem;
+            z-index: 99;
+        }
+
+        .mobile-menu.open {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--c-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--c-text);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+        }
+
+        /* ─── PAGE HERO ─── */
+        .page-hero {
+            padding-top: var(--nav-h);
+            background: var(--c-surface);
+            border-bottom: 1px solid var(--c-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: 'ABOUT';
+            position: absolute;
+            font-family: var(--font-display);
+            font-size: clamp(8rem, 22vw, 20rem);
+            color: rgba(255, 255, 255, 0.025);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            white-space: nowrap;
+            letter-spacing: 8px;
+            pointer-events: none;
+            margin-top: 3rem;
+        }
+
+        .page-hero-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 2rem;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-hero-label {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--c-accent);
+            margin-bottom: 0.75rem;
+        }
+
+        .page-hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 7vw, 6rem);
+            line-height: 0.9;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .page-hero h1 span {
+            color: var(--c-accent);
+        }
+
+        .page-hero-sub {
+            max-width: 400px;
+            font-size: 0.95rem;
+            color: var(--c-muted);
+            line-height: 1.7;
+        }
+
+        /* ─── TICKER ─── */
+        .ticker {
+            background: var(--c-surface2);
+            border-top: 1px solid var(--c-border);
+            border-bottom: 1px solid var(--c-border);
+            overflow: hidden;
+            padding: 10px 0;
+        }
+
+        .ticker-track {
+            display: flex;
+            animation: tickerScroll 120s linear infinite;
+            width: max-content;
+        }
+
+        .ticker-item {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--c-muted);
+            padding: 0 3rem;
+            white-space: nowrap;
+        }
+
+        .ticker-item span {
+            color: var(--c-accent);
+            margin-right: 0.5rem;
+        }
+
+        @keyframes tickerScroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* ─── SECTIONS WRAPPER ─── */
+        .section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+        }
+
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--c-accent);
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.4rem, 5vw, 4.5rem);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 0.95;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title span {
+            color: var(--c-accent);
+        }
+
+        /* ─── MISSION ─── */
+        .mission-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            border-top: 1px solid var(--c-border);
+            padding-top: clamp(3rem, 6vw, 5rem);
+        }
+
+        @media (max-width: 900px) {
+            .mission-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+        }
+
+        .mission-text p {
+            color: var(--c-muted);
+            font-size: 1rem;
+            line-height: 1.85;
+            margin-bottom: 1.25rem;
+        }
+
+        .mission-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .mission-accent {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3rem);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1.05;
+            color: var(--c-text);
+        }
+
+        .mission-accent span {
+            color: var(--c-accent);
+        }
+
+        /* ─── STATS ─── */
+        .stats-strip {
+            background: var(--c-surface);
+            border-top: 1px solid var(--c-border);
+            border-bottom: 1px solid var(--c-border);
+        }
+
+        .stats-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: clamp(2.5rem, 4vw, 3.5rem) clamp(1.5rem, 5vw, 4rem);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+        }
+
+        @media (max-width: 768px) {
+            .stats-inner {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .stat-item {
+            padding: 1.5rem 2rem;
+            border-right: 1px solid var(--c-border);
+            position: relative;
+        }
+
+        .stat-item:last-child {
+            border-right: none;
+        }
+
+        @media (max-width: 768px) {
+            .stat-item:nth-child(2) {
+                border-right: none;
+            }
+
+            .stat-item:nth-child(3) {
+                border-top: 1px solid var(--c-border);
+            }
+
+            .stat-item:nth-child(4) {
+                border-top: 1px solid var(--c-border);
+                border-right: none;
+            }
+        }
+
+        .stat-num {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--c-accent);
+            line-height: 1;
+            letter-spacing: 1px;
+        }
+
+        .stat-label {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--c-muted);
+            margin-top: 0.4rem;
+        }
+
+        /* ─── VALUES ─── */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            border: 1px solid var(--c-border);
+            margin-top: 2.5rem;
+        }
+
+        @media (max-width: 900px) {
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .value-card {
+            padding: 2rem;
+            border-right: 1px solid var(--c-border);
+            position: relative;
+            overflow: hidden;
+            transition: background 0.3s;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 0;
+            background: var(--c-accent);
+            transition: height 0.35s var(--ease);
+        }
+
+        .value-card:hover::before {
+            height: 100%;
+        }
+
+        .value-card:hover {
+            background: var(--c-surface2);
+        }
+
+        .value-card:last-child {
+            border-right: none;
+        }
+
+        @media (max-width: 900px) {
+            .value-card {
+                border-right: none;
+                border-bottom: 1px solid var(--c-border);
+            }
+
+            .value-card:last-child {
+                border-bottom: none;
+            }
+        }
+
+        .value-icon {
+            font-size: 1.4rem;
+            color: var(--c-accent);
+            margin-bottom: 1rem;
+        }
+
+        .value-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.75rem;
+        }
+
+        .value-desc {
+            font-size: 0.88rem;
+            color: var(--c-muted);
+            line-height: 1.75;
+        }
+
+        /* ─── TEAM ─── */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            border: 1px solid var(--c-border);
+            margin-top: 2.5rem;
+        }
+
+        @media (max-width: 1100px) {
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 560px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .team-card {
+            padding: 2rem 1.75rem;
+            border-right: 1px solid var(--c-border);
+            border-bottom: 1px solid var(--c-border);
+            position: relative;
+            overflow: hidden;
+            transition: background 0.3s;
+        }
+
+        .team-card:nth-child(4n) {
+            border-right: none;
+        }
+
+        .team-card:nth-last-child(-n+4) {
+            border-bottom: none;
+        }
+
+        @media (max-width: 1100px) {
+            .team-card:nth-child(4n) {
+                border-right: 1px solid var(--c-border);
+            }
+
+            .team-card:nth-child(2n) {
+                border-right: none;
+            }
+
+            .team-card:nth-last-child(-n+4) {
+                border-bottom: 1px solid var(--c-border);
+            }
+
+            .team-card:nth-last-child(-n+2) {
+                border-bottom: none;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .team-card {
+                border-right: none !important;
+            }
+
+            .team-card:last-child {
+                border-bottom: none;
+            }
+
+            .team-card:nth-last-child(-n+2) {
+                border-bottom: 1px solid var(--c-border);
+            }
+        }
+
+        .team-card:hover {
+            background: var(--c-surface2);
+        }
+
+        .team-avatar {
+            width: 60px;
+            height: 60px;
+            background: var(--c-surface2);
+            border: 1px solid var(--c-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            color: var(--c-accent);
+            margin-bottom: 1.25rem;
+            letter-spacing: 1px;
+        }
+
+        .team-name {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
+        }
+
+        .team-role {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--c-accent);
+            margin-bottom: 0.85rem;
+        }
+
+        .team-bio {
+            font-size: 0.82rem;
+            color: var(--c-muted);
+            line-height: 1.7;
+        }
+
+        .team-links {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: 1.25rem;
+        }
+
+        .team-link {
+            width: 30px;
+            height: 30px;
+            border: 1px solid var(--c-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--c-muted);
+            text-decoration: none;
+            font-size: 0.75rem;
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .team-link:hover {
+            border-color: var(--c-accent);
+            color: var(--c-accent);
+        }
+
+        /* ─── TIMELINE ─── */
+        .timeline {
+            margin-top: 2.5rem;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: var(--c-border);
+        }
+
+        .timeline-item {
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -5px;
+            top: 4px;
+            width: 11px;
+            height: 11px;
+            background: var(--c-accent);
+            border: 2px solid var(--c-bg);
+        }
+
+        .timeline-year {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--c-accent);
+            margin-bottom: 0.4rem;
+        }
+
+        .timeline-title {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-desc {
+            font-size: 0.88rem;
+            color: var(--c-muted);
+            line-height: 1.75;
+            max-width: 520px;
+        }
+
+        /* ─── CTA STRIP ─── */
+        .cta-strip {
+            background: var(--c-surface);
+            border-top: 1px solid var(--c-border);
+        }
+
+        .cta-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .cta-text .section-label {
+            margin-bottom: 0.5rem;
+        }
+
+        .cta-text h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4.5vw, 3.5rem);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1;
+        }
+
+        .cta-text h2 span {
+            color: var(--c-accent);
+        }
+
+        .cta-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn-primary {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 14px 32px;
+            background: var(--c-accent);
+            color: var(--c-bg);
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: opacity 0.2s;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.85;
+        }
+
+        .btn-outline {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 14px 32px;
+            background: transparent;
+            color: var(--c-muted);
+            border: 1px solid var(--c-border);
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: border-color 0.25s, color 0.25s;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--c-accent);
+            color: var(--c-accent);
+        }
+
+        /* ─── PRESS / LOGOS ─── */
+        .press-strip {
+            border-top: 1px solid var(--c-border);
+            border-bottom: 1px solid var(--c-border);
+            overflow: hidden;
+            padding: 1.5rem 0;
+            background: var(--c-surface2);
+        }
+
+        .press-track {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            animation: tickerScroll 22s linear infinite;
+            width: max-content;
+        }
+
+        .press-item {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.15);
+            white-space: nowrap;
+            transition: color 0.3s;
+        }
+
+        .press-item:hover {
+            color: var(--c-muted);
+        }
+
+        /* ─── BACK TO TOP ─── */
+        #btt {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 44px;
+            height: 44px;
+            background: var(--c-accent);
+            color: var(--c-bg);
+            border: none;
+            border-radius: 1px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 90;
+        }
+
+        #btt.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #btt:hover {
+            background: var(--c-text);
+        }
+
+        #btt svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--c-bg);
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            background: var(--c-surface);
+            border-top: 1px solid var(--c-border);
+            padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem) 1.5rem;
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            color: var(--c-text);
+            text-decoration: none;
+        }
+
+        .footer-logo .dot {
+            color: var(--c-accent);
+        }
+
+        .footer-desc {
+            font-size: 0.88rem;
+            color: var(--c-muted);
+            margin-top: 1rem;
+            line-height: 1.7;
+            max-width: 280px;
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--c-accent);
+            margin-bottom: 1.25rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.6rem;
+        }
+
+        .footer-col ul li a {
+            font-size: 0.88rem;
+            color: var(--c-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--c-text);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            width: 38px;
+            height: 38px;
+            border: 1px solid var(--c-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--c-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: border-color 0.2s, color 0.2s, transform 0.2s;
+        }
+
+        .social-link:hover {
+            border-color: var(--c-accent);
+            color: var(--c-accent);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--c-border);
+            padding-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            color: var(--c-muted);
+            text-transform: uppercase;
+        }
+
+        /* ─── REVEAL ─── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+        }
+
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">Eventify <span class="dot">●</span></a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="events.html">Events</a>
+                <a href="about.html" class="active">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="login.html" class="btn-login">Login</a>
+            </div>
+            <button class="hamburger" id="burger" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+    <nav class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="events.html">Events</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="login.html">Login</a>
+    </nav>
+
+    <!-- PAGE HERO -->
+    <div class="page-hero">
+        <div class="page-hero-inner">
+            <div>
+                <div class="page-hero-label">Our Story</div>
+                <h1>Who We <span>Are</span></h1>
+            </div>
+            <div class="page-hero-sub">
+                We exist to connect fans with the artists and experiences that move them — one show at a time.
+            </div>
+        </div>
+    </div>
+
+    <!-- TICKER -->
+    <div class="ticker">
+        <div class="ticker-track" id="tickerTrack"></div>
+    </div>
+
+    <!-- MISSION -->
+    <div class="section">
+        <div class="mission-grid reveal">
+            <div class="mission-text">
+                <div class="section-label">Our Mission</div>
+                <div class="section-title">Built for <span>Live</span><br>Music Lovers</div>
+                <p>Eventify was born from a simple frustration: buying tickets to live events shouldn't be a battle.
+                    Confusing platforms, hidden fees, and sold-out screens before the page even loads — we've all been
+                    there.</p>
+                <p>So we built something better. A platform designed with fans first — fast, transparent, and full of
+                    the events you actually want to attend. No bots. No nonsense. Just great live music, made
+                    accessible.</p>
+                <p>From intimate jazz nights to 80,000-person stadium spectacles, we curate the best of live culture
+                    across the UK and Europe, and make booking feel effortless.</p>
+            </div>
+            <div>
+                <div class="mission-accent">
+                    "Every great night<br>starts with a <span>single ticket."</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-strip">
+        <div class="stats-inner">
+            <div class="stat-item reveal">
+                <div class="stat-num">500K+</div>
+                <div class="stat-label">Tickets Sold</div>
+            </div>
+            <div class="stat-item reveal" style="transition-delay:80ms">
+                <div class="stat-num">1,200+</div>
+                <div class="stat-label">Events Listed</div>
+            </div>
+            <div class="stat-item reveal" style="transition-delay:160ms">
+                <div class="stat-num">48</div>
+                <div class="stat-label">Cities Covered</div>
+            </div>
+            <div class="stat-item reveal" style="transition-delay:240ms">
+                <div class="stat-num">99.2%</div>
+                <div class="stat-label">Happy Fans</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRESS LOGOS -->
+    <div class="press-strip">
+        <div class="press-track" id="pressTrack"></div>
+    </div>
+
+    <!-- VALUES -->
+    <div class="section">
+        <div class="section-label reveal">What We Stand For</div>
+        <div class="section-title reveal">Our <span>Values</span></div>
+        <div class="values-grid reveal">
+            <div class="value-card">
+                <div class="value-icon"><i class="fas fa-bolt"></i></div>
+                <div class="value-title">Speed First</div>
+                <div class="value-desc">Tickets move fast. So do we. Our platform is engineered to handle demand spikes
+                    at launch — meaning you're never stuck in a queue while bots clean out the floor.</div>
+            </div>
+            <div class="value-card">
+                <div class="value-icon"><i class="fas fa-eye"></i></div>
+                <div class="value-title">Radical Transparency</div>
+                <div class="value-desc">The price you see is the price you pay. We display all fees upfront, no mystery
+                    charges at checkout. What you see on the listing is your final total.</div>
+            </div>
+            <div class="value-card">
+                <div class="value-icon"><i class="fas fa-music"></i></div>
+                <div class="value-title">Culture Over Commerce</div>
+                <div class="value-desc">We're music fans running a ticket platform — not the other way around. Every
+                    event we add goes through a curation filter. Quality over quantity, always.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TIMELINE / HISTORY -->
+    <div class="section" style="border-top: 1px solid var(--c-border);">
+        <div class="section-label reveal">How We Got Here</div>
+        <div class="section-title reveal">Our <span>Journey</span></div>
+        <div class="timeline reveal">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">2019</div>
+                <div class="timeline-title">The Idea</div>
+                <div class="timeline-desc">Founders Kai and Priya meet at a jazz club in Shoreditch — after both missing
+                    out on tickets to the same sold-out show the week before. They sketch the first version of Eventify
+                    on a napkin.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">2020</div>
+                <div class="timeline-title">Beta Launch</div>
+                <div class="timeline-desc">Despite a global pandemic, we launch quietly with 12 virtual and
+                    socially-distanced events. 3,000 early users sign up in the first month.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">2021</div>
+                <div class="timeline-title">Live Music Returns</div>
+                <div class="timeline-desc">As venues reopen across the UK, Eventify becomes the go-to booking platform
+                    for independent promoters. We partner with 60+ venues in the first six months back.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">2023</div>
+                <div class="timeline-title">European Expansion</div>
+                <div class="timeline-desc">We expand into Portugal, Germany, and the Netherlands — starting with
+                    festival partnerships including Afro Nation Porto. 100,000 tickets sold milestone reached.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">2025</div>
+                <div class="timeline-title">Half a Million Fans</div>
+                <div class="timeline-desc">Eventify now serves over 500,000 fans across 48 cities, with more than 1,200
+                    events on the platform each year. We're just getting started.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TEAM -->
+    <div class="section" style="border-top: 1px solid var(--c-border);">
+        <div class="section-label reveal">The People</div>
+        <div class="section-title reveal">Meet the <span>Team</span></div>
+        <div class="team-grid reveal">
+            <div class="team-card">
+                <div class="team-avatar">KO</div>
+                <div class="team-name">Kai Osei</div>
+                <div class="team-role">Co-Founder & CEO</div>
+                <div class="team-bio">Former promoter turned product obsessive. Kai spent a decade putting on shows
+                    across London before deciding the ticketing side needed fixing.</div>
+                <div class="team-links">
+                    <a href="#" class="team-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="team-link"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">PM</div>
+                <div class="team-name">Priya Mehta</div>
+                <div class="team-role">Co-Founder & CTO</div>
+                <div class="team-bio">Ex-Google engineer and lifelong raver. Priya architected Eventify's ticketing
+                    infrastructure from the ground up, built to handle the biggest drops.</div>
+                <div class="team-links">
+                    <a href="#" class="team-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="team-link"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">JL</div>
+                <div class="team-name">Jonas Larsen</div>
+                <div class="team-role">Head of Partnerships</div>
+                <div class="team-bio">Festival veteran and music industry lifer. Jonas manages relationships with over
+                    200 promoters, venues, and artists across the UK and Europe.</div>
+                <div class="team-links">
+                    <a href="#" class="team-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="team-link"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">SN</div>
+                <div class="team-name">Sofia Nkosi</div>
+                <div class="team-role">Head of Design</div>
+                <div class="team-bio">Sofia brings a visual language rooted in underground club culture — bold,
+                    editorial, and unmistakably intentional. Every pixel is earned.</div>
+                <div class="team-links">
+                    <a href="#" class="team-link"><i class="fab fa-dribbble"></i></a>
+                    <a href="#" class="team-link"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA STRIP -->
+    <div class="cta-strip">
+        <div class="cta-inner">
+            <div class="cta-text">
+                <div class="section-label">Ready to experience it?</div>
+                <h2>Find Your <span>Next Show</span></h2>
+            </div>
+            <div class="cta-actions">
+                <a href="events.html" class="btn-primary">Browse Events</a>
+                <a href="contact.html" class="btn-outline">Get in Touch</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- BACK TO TOP -->
+    <button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+        <svg viewBox="0 0 24 24">
+            <path d="M12 4l-8 8h5v8h6v-8h5z" />
+        </svg>
+    </button>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div>
+                    <a href="index.html" class="footer-logo">Eventify <span class="dot">●</span></a>
+                    <p class="footer-desc">Your premier destination for concert tickets and live music experiences.
+                        Discover, book, and experience the best live events.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="yr"></span> Eventify. All rights reserved.</p>
+                <p>Built with passion for live music</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ─── TICKER ───
+        const items = ['Wireless Festival', 'Creamfields', 'Afro Nation', 'Reading Festival', 'Parklife', 'Download', 'Arctic Monkeys', 'Printworks'];
+        const track = document.getElementById('tickerTrack');
+        [...items, ...items].forEach(t => {
+            const el = document.createElement('div');
+            el.className = 'ticker-item';
+            el.innerHTML = `<span>★</span>${t}`;
+            track.appendChild(el);
+        });
+
+        // ─── PRESS ───
+        const press = ['The Guardian', 'NME', 'Mixmag', 'i-D Magazine', 'Resident Advisor', 'Time Out', 'The Times', 'Dazed'];
+        const pressTrack = document.getElementById('pressTrack');
+        [...press, ...press].forEach(p => {
+            const el = document.createElement('div');
+            el.className = 'press-item';
+            el.textContent = p;
+            pressTrack.appendChild(el);
+        });
+
+        // ─── NAV / SCROLL ───
+        const btt = document.getElementById('btt');
+        window.addEventListener('scroll', () => {
+            btt.classList.toggle('visible', window.scrollY > 400);
+        });
+
+        const burger = document.getElementById('burger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        burger.addEventListener('click', () => {
+            burger.classList.toggle('open');
+            mobileMenu.classList.toggle('open');
+        });
+
+        // ─── REVEAL ───
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // ─── YEAR ───
+        document.getElementById('yr').textContent = new Date().getFullYear();
+    </script>
+
+</body>
+
+</html>

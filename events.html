@@ -1,0 +1,2054 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events | Eventify</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="https://res.cloudinary.com/dkds78kb3/image/upload/v1775841898/favicon-eventify_p7uxhy.png">
+
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --c-bg: #080808;
+            --c-surface: #111111;
+            --c-surface2: #1a1a1a;
+            --c-border: rgba(255, 255, 255, 0.08);
+            --c-text: #f0ede6;
+            --c-muted: #888780;
+            --c-accent: #e8c84a;
+            --c-accent2: #ff5e3a;
+            --c-glow: rgba(232, 200, 74, 0.15);
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+            --nav-h: 72px;
+            --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--c-bg);
+            color: var(--c-text);
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--c-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--c-accent);
+            border-radius: 2px;
+        }
+
+        /* ─── NAV ─── */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            height: var(--nav-h);
+            display: flex;
+            align-items: center;
+            padding: 0 clamp(1.5rem, 5vw, 4rem);
+            background: rgba(8, 8, 8, 0.9);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--c-border);
+        }
+
+        .nav-inner {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--c-text);
+            text-decoration: none;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo .dot {
+            color: var(--c-accent);
+            font-size: 0.6rem;
+            position: relative;
+            top: -6px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--c-muted);
+            text-decoration: none;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--c-accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s var(--ease);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--c-text);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            transform: scaleX(1);
+        }
+
+        .btn-login {
+            font-family: var(--font-mono) !important;
+            font-size: 0.72rem !important;
+            padding: 8px 20px;
+            border: 1px solid var(--c-accent) !important;
+            color: var(--c-accent) !important;
+            border-radius: 2px;
+            transition: background 0.2s, color 0.2s !important;
+        }
+
+        .btn-login::after {
+            display: none !important;
+        }
+
+        .btn-login:hover {
+            background: var(--c-accent) !important;
+            color: var(--c-bg) !important;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 1.5px;
+            background: var(--c-text);
+            transition: 0.3s;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: translateY(6.5px) rotate(45deg);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: translateY(-6.5px) rotate(-45deg);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: var(--nav-h);
+            left: 0;
+            right: 0;
+            background: rgba(8, 8, 8, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--c-border);
+            padding: 2rem clamp(1.5rem, 5vw, 4rem);
+            flex-direction: column;
+            gap: 1.5rem;
+            z-index: 99;
+        }
+
+        .mobile-menu.open {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--c-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--c-text);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+        }
+
+        /* ─── PAGE HERO ─── */
+        .page-hero {
+            padding-top: var(--nav-h);
+            background: var(--c-surface);
+            border-bottom: 1px solid var(--c-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: 'EVENTS';
+            position: absolute;
+            font-family: var(--font-display);
+            font-size: clamp(8rem, 22vw, 20rem);
+            color: rgba(255, 255, 255, 0.025);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            white-space: nowrap;
+            letter-spacing: 8px;
+            pointer-events: none;
+            margin-top: 3rem;
+        }
+
+        .page-hero-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 2rem;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-hero-label {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--c-accent);
+            margin-bottom: 0.75rem;
+        }
+
+        .page-hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 7vw, 6rem);
+            line-height: 0.9;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .page-hero h1 span {
+            color: var(--c-accent);
+        }
+
+        .page-hero-meta {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--c-muted);
+            text-align: right;
+        }
+
+        .page-hero-meta strong {
+            color: var(--c-text);
+            font-size: 1.8rem;
+            font-family: var(--font-display);
+            display: block;
+        }
+
+        /* ─── TICKER ─── */
+        .ticker {
+            background: var(--c-surface2);
+            border-top: 1px solid var(--c-border);
+            border-bottom: 1px solid var(--c-border);
+            overflow: hidden;
+            padding: 10px 0;
+        }
+
+        .ticker-track {
+            display: flex;
+            animation: tickerScroll 120s linear infinite;
+            width: max-content;
+        }
+
+        .ticker-item {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--c-muted);
+            padding: 0 3rem;
+            white-space: nowrap;
+        }
+
+        .ticker-item span {
+            color: var(--c-accent);
+            margin-right: 0.5rem;
+        }
+
+        @keyframes tickerScroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* ─── MAIN LAYOUT ─── */
+        .main-wrap {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: clamp(2rem, 4vw, 4rem) clamp(1.5rem, 5vw, 4rem);
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2.5rem;
+            align-items: start;
+        }
+
+        @media (max-width: 1024px) {
+            .main-wrap {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ─── SIDEBAR / FILTERS ─── */
+        .sidebar {
+            position: sticky;
+            top: calc(var(--nav-h) + 1.5rem);
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            border: 1px solid var(--c-border);
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                position: static;
+            }
+        }
+
+        .sidebar-header {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--c-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sidebar-header h3 {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--c-accent);
+        }
+
+        .clear-btn {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: none;
+            border: none;
+            color: var(--c-muted);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .clear-btn:hover {
+            color: var(--c-accent);
+        }
+
+        .filter-group {
+            border-bottom: 1px solid var(--c-border);
+        }
+
+        .filter-group:last-child {
+            border-bottom: none;
+        }
+
+        .filter-group-label {
+            padding: 1rem 1.25rem 0.6rem;
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--c-muted);
+        }
+
+        .filter-options {
+            padding: 0 1.25rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 4px 0;
+        }
+
+        .filter-option input[type="checkbox"] {
+            display: none;
+        }
+
+        .filter-box {
+            width: 14px;
+            height: 14px;
+            border: 1px solid var(--c-border);
+            flex-shrink: 0;
+            position: relative;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .filter-box::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 4px;
+            width: 4px;
+            height: 7px;
+            border-right: 1.5px solid var(--c-bg);
+            border-bottom: 1.5px solid var(--c-bg);
+            transform: rotate(45deg) scale(0);
+            transition: transform 0.15s;
+        }
+
+        .filter-option input:checked+.filter-box {
+            background: var(--c-accent);
+            border-color: var(--c-accent);
+        }
+
+        .filter-option input:checked+.filter-box::after {
+            transform: rotate(45deg) scale(1);
+        }
+
+        .filter-option-label {
+            font-size: 0.82rem;
+            color: var(--c-muted);
+            transition: color 0.2s;
+        }
+
+        .filter-option:hover .filter-option-label {
+            color: var(--c-text);
+        }
+
+        .filter-option:hover .filter-box {
+            border-color: var(--c-accent);
+        }
+
+        .price-inputs {
+            padding: 0 1.25rem 1rem;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .price-input {
+            flex: 1;
+            background: var(--c-surface2);
+            border: 1px solid var(--c-border);
+            color: var(--c-text);
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            padding: 8px 10px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .price-input:focus {
+            border-color: var(--c-accent);
+        }
+
+        .price-sep {
+            color: var(--c-muted);
+            font-size: 0.8rem;
+        }
+
+        .apply-btn {
+            margin: 1rem 1.25rem;
+            display: block;
+            width: calc(100% - 2.5rem);
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 10px;
+            background: var(--c-accent);
+            color: var(--c-bg);
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            transition: opacity 0.2s;
+        }
+
+        .apply-btn:hover {
+            opacity: 0.85;
+        }
+
+        /* ─── EVENTS PANEL ─── */
+        .events-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* ─── SEARCH + SORT BAR ─── */
+        .controls-bar {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-wrap {
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--c-border);
+            background: var(--c-surface);
+            transition: border-color 0.2s;
+        }
+
+        .search-wrap:focus-within {
+            border-color: var(--c-accent);
+        }
+
+        .search-wrap i {
+            padding: 0 12px;
+            color: var(--c-muted);
+            font-size: 0.8rem;
+        }
+
+        .search-input {
+            flex: 1;
+            background: none;
+            border: none;
+            outline: none;
+            color: var(--c-text);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            padding: 11px 12px 11px 0;
+        }
+
+        .search-input::placeholder {
+            color: var(--c-muted);
+        }
+
+        .sort-select {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: var(--c-surface);
+            border: 1px solid var(--c-border);
+            color: var(--c-muted);
+            padding: 11px 14px;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.2s;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23888780'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 32px;
+        }
+
+        .sort-select:focus {
+            border-color: var(--c-accent);
+        }
+
+        /* ─── ACTIVE FILTERS CHIPS ─── */
+        .active-filters {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-chip {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 5px 10px 5px 12px;
+            border: 1px solid rgba(232, 200, 74, 0.3);
+            color: var(--c-accent);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .filter-chip:hover {
+            background: rgba(232, 200, 74, 0.08);
+        }
+
+        .filter-chip span {
+            font-size: 0.9rem;
+            line-height: 1;
+        }
+
+        /* ─── RESULTS COUNT ─── */
+        .results-meta {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--c-muted);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .results-meta strong {
+            color: var(--c-accent);
+        }
+
+        /* ─── VIEW TOGGLE ─── */
+        .view-toggle {
+            display: flex;
+            gap: 0;
+        }
+
+        .view-btn {
+            width: 36px;
+            height: 36px;
+            background: var(--c-surface);
+            border: 1px solid var(--c-border);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--c-muted);
+            transition: background 0.2s, color 0.2s;
+            font-size: 0.85rem;
+        }
+
+        .view-btn:first-child {
+            border-right: none;
+        }
+
+        .view-btn.active {
+            background: var(--c-accent);
+            color: var(--c-bg);
+            border-color: var(--c-accent);
+        }
+
+        /* ─── GRID / LIST VIEW ─── */
+        #eventsContainer.grid-view {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5px;
+            background: var(--c-border);
+            border: 1.5px solid var(--c-border);
+        }
+
+        #eventsContainer.list-view {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            border: 1px solid var(--c-border);
+        }
+
+        /* ─── EVENT CARD (Grid) ─── */
+        .event-card {
+            background: var(--c-surface);
+            padding: 1.75rem;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .event-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 0;
+            background: var(--c-accent);
+            transition: height 0.35s var(--ease);
+        }
+
+        .event-card:hover::before {
+            height: 100%;
+        }
+
+        .event-card:hover {
+            background: var(--c-surface2);
+        }
+
+        .event-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .event-genre {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--c-accent);
+            padding: 4px 10px;
+            border: 1px solid rgba(232, 200, 74, 0.25);
+            border-radius: 1px;
+        }
+
+        .event-price {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--c-text);
+        }
+
+        .event-title {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            line-height: 1.1;
+            margin-bottom: 0.75rem;
+        }
+
+        .event-artist {
+            font-size: 0.85rem;
+            color: var(--c-muted);
+            margin-bottom: 1.25rem;
+        }
+
+        .event-meta {
+            display: flex;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .event-meta span {
+            font-size: 0.78rem;
+            color: var(--c-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .event-meta i {
+            color: var(--c-accent);
+            font-size: 0.7rem;
+        }
+
+        .event-bar {
+            height: 1px;
+            background: var(--c-border);
+            margin-bottom: 1.25rem;
+        }
+
+        .event-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .event-avail {
+            font-size: 0.72rem;
+            color: var(--c-muted);
+        }
+
+        .event-avail.low {
+            color: var(--c-accent2);
+        }
+
+        .event-avail.sold {
+            color: #555;
+            text-decoration: line-through;
+        }
+
+        .btn-book {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 8px 18px;
+            background: transparent;
+            color: var(--c-accent);
+            border: 1px solid rgba(232, 200, 74, 0.4);
+            border-radius: 1px;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .btn-book:hover {
+            background: var(--c-accent);
+            color: var(--c-bg);
+        }
+
+        .btn-book:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        /* ─── LIST CARD ─── */
+        .event-card.list-card {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1.5rem;
+            align-items: center;
+            padding: 1.25rem 1.75rem;
+            border-bottom: 1px solid var(--c-border);
+        }
+
+        .event-card.list-card:last-child {
+            border-bottom: none;
+        }
+
+        .event-card.list-card::before {
+            width: 0;
+            height: 2px;
+            top: auto;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+        }
+
+        .event-card.list-card:hover::before {
+            height: 2px;
+            width: 100%;
+        }
+
+        .list-date-block {
+            text-align: center;
+            min-width: 56px;
+            border: 1px solid var(--c-border);
+            padding: 8px 10px;
+        }
+
+        .list-date-day {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            line-height: 1;
+            color: var(--c-accent);
+        }
+
+        .list-date-mon {
+            font-family: var(--font-mono);
+            font-size: 0.58rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--c-muted);
+        }
+
+        .list-body .event-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .list-body .event-artist {
+            margin-bottom: 0.5rem;
+        }
+
+        .list-body .event-meta {
+            margin-bottom: 0;
+        }
+
+        .list-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.75rem;
+            text-align: right;
+        }
+
+        .list-right .event-price {
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 640px) {
+            .event-card.list-card {
+                grid-template-columns: 1fr;
+            }
+
+            .list-right {
+                align-items: flex-start;
+            }
+        }
+
+        /* ─── NO RESULTS ─── */
+        .no-results {
+            text-align: center;
+            padding: 5rem 2rem;
+            border: 1px solid var(--c-border);
+        }
+
+        .no-results i {
+            font-size: 2.5rem;
+            color: var(--c-border);
+            margin-bottom: 1.25rem;
+        }
+
+        .no-results h3 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .no-results p {
+            color: var(--c-muted);
+            font-size: 0.9rem;
+        }
+
+        /* ─── LOAD MORE ─── */
+        .load-more-wrap {
+            text-align: center;
+        }
+
+        .btn-load-more {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 14px 40px;
+            background: transparent;
+            color: var(--c-text);
+            border: 1px solid var(--c-border);
+            cursor: pointer;
+            transition: border-color 0.25s, color 0.25s;
+        }
+
+        .btn-load-more:hover {
+            border-color: var(--c-accent);
+            color: var(--c-accent);
+        }
+
+        /* ─── MODAL ─── */
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(8, 8, 8, 0.88);
+            backdrop-filter: blur(8px);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal-backdrop.open {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--c-surface);
+            border: 1px solid var(--c-border);
+            width: 100%;
+            max-width: 560px;
+            position: relative;
+            animation: modalIn 0.35s var(--ease);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 1.5rem 1.75rem;
+            border-bottom: 1px solid var(--c-border);
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .modal-header-label {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--c-accent);
+            margin-bottom: 6px;
+        }
+
+        .modal-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--c-muted);
+            font-size: 1.2rem;
+            transition: color 0.2s;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .modal-close:hover {
+            color: var(--c-text);
+        }
+
+        .modal-body {
+            padding: 1.75rem;
+        }
+
+        .modal-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .modal-info-item label {
+            font-family: var(--font-mono);
+            font-size: 0.58rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--c-muted);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .modal-info-item p {
+            font-size: 0.9rem;
+            color: var(--c-text);
+        }
+
+        .modal-divider {
+            height: 1px;
+            background: var(--c-border);
+            margin: 1.5rem 0;
+        }
+
+        .ticket-select-label {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--c-muted);
+            margin-bottom: 1rem;
+        }
+
+        .ticket-tiers {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .ticket-tier {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 14px;
+            border: 1px solid var(--c-border);
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .ticket-tier:hover {
+            background: var(--c-surface2);
+        }
+
+        .ticket-tier.selected {
+            border-color: var(--c-accent);
+            background: rgba(232, 200, 74, 0.05);
+        }
+
+        .tier-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tier-radio {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 1px solid var(--c-border);
+            position: relative;
+            transition: border-color 0.2s;
+        }
+
+        .ticket-tier.selected .tier-radio {
+            border-color: var(--c-accent);
+        }
+
+        .tier-radio::after {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            border-radius: 50%;
+            background: var(--c-accent);
+            transform: scale(0);
+            transition: transform 0.2s;
+        }
+
+        .ticket-tier.selected .tier-radio::after {
+            transform: scale(1);
+        }
+
+        .tier-name {
+            font-size: 0.88rem;
+            font-weight: 500;
+        }
+
+        .tier-desc {
+            font-size: 0.75rem;
+            color: var(--c-muted);
+        }
+
+        .tier-price {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--c-text);
+        }
+
+        .qty-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .qty-label {
+            font-size: 0.85rem;
+            color: var(--c-muted);
+        }
+
+        .qty-ctrl {
+            display: flex;
+            align-items: center;
+            gap: 0;
+        }
+
+        .qty-btn {
+            width: 34px;
+            height: 34px;
+            background: var(--c-surface2);
+            border: 1px solid var(--c-border);
+            color: var(--c-text);
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .qty-btn:hover {
+            background: var(--c-accent);
+            color: var(--c-bg);
+        }
+
+        .qty-val {
+            width: 42px;
+            height: 34px;
+            background: transparent;
+            border-top: 1px solid var(--c-border);
+            border-bottom: 1px solid var(--c-border);
+            border-left: none;
+            border-right: none;
+            text-align: center;
+            color: var(--c-text);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+        }
+
+        .modal-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 0;
+            border-top: 1px solid var(--c-border);
+        }
+
+        .modal-total-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--c-muted);
+        }
+
+        .modal-total-val {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--c-accent);
+        }
+
+        .modal-footer {
+            padding: 0 1.75rem 1.75rem;
+        }
+
+        .btn-confirm {
+            width: 100%;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 16px;
+            background: var(--c-accent);
+            color: var(--c-bg);
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn-confirm:hover {
+            opacity: 0.85;
+        }
+
+        .modal-disclaimer {
+            text-align: center;
+            font-size: 0.72rem;
+            color: var(--c-muted);
+            margin-top: 0.75rem;
+        }
+
+        /* ─── SUCCESS STATE ─── */
+        .success-screen {
+            display: none;
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .success-screen.show {
+            display: block;
+        }
+
+        .success-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: rgba(232, 200, 74, 0.1);
+            border: 1px solid var(--c-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.8rem;
+            color: var(--c-accent);
+        }
+
+        .success-screen h3 {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .success-screen p {
+            color: var(--c-muted);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .success-ref {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            color: var(--c-muted);
+            border: 1px solid var(--c-border);
+            display: inline-block;
+            padding: 8px 16px;
+            margin-bottom: 2rem;
+        }
+
+        .success-ref strong {
+            color: var(--c-accent);
+        }
+
+        /* ─── BACK TO TOP ─── */
+        #btt {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 44px;
+            height: 44px;
+            background: var(--c-accent);
+            color: var(--c-bg);
+            border: none;
+            border-radius: 1px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 90;
+        }
+
+        #btt.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #btt:hover {
+            background: var(--c-text);
+        }
+
+        #btt svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--c-bg);
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            background: var(--c-surface);
+            border-top: 1px solid var(--c-border);
+            padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem) 1.5rem;
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            color: var(--c-text);
+            text-decoration: none;
+        }
+
+        .footer-logo .dot {
+            color: var(--c-accent);
+        }
+
+        .footer-desc {
+            font-size: 0.88rem;
+            color: var(--c-muted);
+            margin-top: 1rem;
+            line-height: 1.7;
+            max-width: 280px;
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--c-accent);
+            margin-bottom: 1.25rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.6rem;
+        }
+
+        .footer-col ul li a {
+            font-size: 0.88rem;
+            color: var(--c-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--c-text);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            width: 38px;
+            height: 38px;
+            border: 1px solid var(--c-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--c-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: border-color 0.2s, color 0.2s, transform 0.2s;
+        }
+
+        .social-link:hover {
+            border-color: var(--c-accent);
+            color: var(--c-accent);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--c-border);
+            padding-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            color: var(--c-muted);
+            text-transform: uppercase;
+        }
+
+        /* ─── REVEAL ─── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+        }
+
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">Eventify <span class="dot">●</span></a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="events.html" class="active">Events</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="login.html" class="btn-login">Login</a>
+            </div>
+            <button class="hamburger" id="burger" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+    <nav class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="events.html">Events</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="login.html">Login</a>
+    </nav>
+
+    <!-- PAGE HERO -->
+    <div class="page-hero">
+        <div class="page-hero-inner">
+            <div>
+                <div class="page-hero-label">All Upcoming Events</div>
+                <h1>Live <span>Events</span><br>& Concerts</h1>
+            </div>
+            <div class="page-hero-meta">
+                <strong id="heroCount">0</strong>
+                Events available
+            </div>
+        </div>
+    </div>
+
+    <!-- TICKER -->
+    <div class="ticker">
+        <div class="ticker-track" id="tickerTrack"></div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main-wrap">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar reveal">
+            <div class="sidebar-header">
+                <h3>Filter Events</h3>
+                <button class="clear-btn" onclick="clearFilters()">Clear All</button>
+            </div>
+
+            <div class="filter-group">
+                <div class="filter-group-label">Genre</div>
+                <div class="filter-options" id="genreFilters"></div>
+            </div>
+
+            <div class="filter-group">
+                <div class="filter-group-label">Month</div>
+                <div class="filter-options" id="monthFilters"></div>
+            </div>
+
+            <div class="filter-group">
+                <div class="filter-group-label">Availability</div>
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="checkbox" class="avail-filter" value="available">
+                        <span class="filter-box"></span>
+                        <span class="filter-option-label">Available</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" class="avail-filter" value="low">
+                        <span class="filter-box"></span>
+                        <span class="filter-option-label">Few Left</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" class="avail-filter" value="fast">
+                        <span class="filter-box"></span>
+                        <span class="filter-option-label">Selling Fast</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <div class="filter-group-label">Price Range</div>
+                <div class="price-inputs">
+                    <input type="number" class="price-input" id="priceMin" placeholder="Min" min="0">
+                    <span class="price-sep">—</span>
+                    <input type="number" class="price-input" id="priceMax" placeholder="Max" min="0">
+                </div>
+            </div>
+
+            <button class="apply-btn" onclick="applyFilters()">Apply Filters</button>
+        </aside>
+
+        <!-- EVENTS PANEL -->
+        <div class="events-panel">
+
+            <!-- CONTROLS -->
+            <div class="controls-bar reveal">
+                <div class="search-wrap">
+                    <i class="fas fa-search"></i>
+                    <input type="text" class="search-input" id="searchInput"
+                        placeholder="Search events, artists, venues…" oninput="applyFilters()">
+                </div>
+                <select class="sort-select" id="sortSelect" onchange="applyFilters()">
+                    <option value="date">Sort: Date</option>
+                    <option value="price-asc">Price: Low → High</option>
+                    <option value="price-desc">Price: High → Low</option>
+                    <option value="name">Name: A–Z</option>
+                </select>
+                <div class="view-toggle">
+                    <button class="view-btn active" id="btnGrid" onclick="setView('grid')" title="Grid view"><i
+                            class="fas fa-th"></i></button>
+                    <button class="view-btn" id="btnList" onclick="setView('list')" title="List view"><i
+                            class="fas fa-list"></i></button>
+                </div>
+            </div>
+
+            <!-- ACTIVE FILTERS -->
+            <div class="active-filters" id="activeFilters"></div>
+
+            <!-- RESULTS META -->
+            <div class="results-meta reveal">
+                <span>Showing <strong id="resultCount">0</strong> results</span>
+            </div>
+
+            <!-- EVENTS CONTAINER -->
+            <div id="eventsContainer" class="grid-view"></div>
+
+            <!-- LOAD MORE -->
+            <div class="load-more-wrap" id="loadMoreWrap" style="display:none;">
+                <button class="btn-load-more" onclick="loadMore()">Load More Events</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal-backdrop" id="modalBackdrop" onclick="handleBackdropClick(event)">
+        <div class="modal" id="modal">
+            <!-- Booking Form -->
+            <div id="bookingForm">
+                <div class="modal-header">
+                    <div>
+                        <div class="modal-header-label">Book Tickets</div>
+                        <div class="modal-title" id="modalTitle"></div>
+                    </div>
+                    <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-info-grid" id="modalInfoGrid"></div>
+                    <div class="modal-divider"></div>
+                    <div class="ticket-select-label">Select Ticket Type</div>
+                    <div class="ticket-tiers" id="modalTiers"></div>
+                    <div class="qty-row">
+                        <span class="qty-label">Quantity</span>
+                        <div class="qty-ctrl">
+                            <button class="qty-btn" onclick="changeQty(-1)">−</button>
+                            <input type="text" class="qty-val" id="qtyVal" value="1" readonly>
+                            <button class="qty-btn" onclick="changeQty(1)">+</button>
+                        </div>
+                    </div>
+                    <div class="modal-total">
+                        <span class="modal-total-label">Total</span>
+                        <span class="modal-total-val" id="modalTotal">£0</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-confirm" onclick="confirmBooking()">Confirm & Pay</button>
+                    <p class="modal-disclaimer">Secure checkout · No hidden fees · Instant e-ticket</p>
+                </div>
+            </div>
+            <!-- Success -->
+            <div class="success-screen" id="successScreen">
+                <div class="success-icon"><i class="fas fa-check"></i></div>
+                <h3>You're In!</h3>
+                <p>Your tickets are confirmed. Check your email for the e-ticket.</p>
+                <div class="success-ref">Ref: <strong id="bookingRef"></strong></div>
+                <button class="btn-confirm" style="max-width:240px;margin:0 auto;display:block;"
+                    onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BACK TO TOP -->
+    <button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+        <svg viewBox="0 0 24 24">
+            <path d="M12 4l-8 8h5v8h6v-8h5z" />
+        </svg>
+    </button>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div>
+                    <a href="index.html" class="footer-logo">Eventify <span class="dot">●</span></a>
+                    <p class="footer-desc">Your premier destination for concert tickets and live music experiences.
+                        Discover, book, and experience the best live events.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="yr"></span> Eventify. All rights reserved.</p>
+                <p>Built with passion for live music</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ─── DATA ───
+        const ALL_EVENTS = [
+            { id: 1, title: "Wireless Festival", artist: "Multiple Artists", genre: "Hip-Hop", month: "Jul", day: "05", date: "Jul 5, 2025", venue: "Finsbury Park, London", basePrice: 89, currency: "£", avail: "Few left", availKey: "low", tiers: [{ name: "General Admission", desc: "Standing, unreserved", price: 89 }, { name: "VIP Lounge", desc: "Reserved seating + drinks", price: 175 }, { name: "Backstage Pass", desc: "Meet & greet + VIP", price: 350 }] },
+            { id: 2, title: "Creamfields", artist: "Various DJs", genre: "Electronic", month: "Aug", day: "22", date: "Aug 22, 2025", venue: "Daresbury, Cheshire", basePrice: 149, currency: "£", avail: "Available", availKey: "available", tiers: [{ name: "Day Ticket", desc: "Single day access", price: 149 }, { name: "Weekend Pass", desc: "3-day camping ticket", price: 229 }, { name: "Premier Camp", desc: "Luxury camping + access", price: 399 }] },
+            { id: 3, title: "Reading Festival", artist: "Headliners TBC", genre: "Rock / Alt", month: "Aug", day: "28", date: "Aug 28, 2025", venue: "Reading, Berkshire", basePrice: 225, currency: "£", avail: "Available", availKey: "available", tiers: [{ name: "Weekend Standard", desc: "3 days general", price: 225 }, { name: "Weekend Boutique", desc: "Glamping + fast track", price: 395 }] },
+            { id: 4, title: "Afro Nation", artist: "Burna Boy & More", genre: "Afrobeats", month: "Jul", day: "03", date: "Jul 3, 2025", venue: "Porto, Portugal", basePrice: 95, currency: "€", avail: "Selling Fast", availKey: "fast", tiers: [{ name: "General", desc: "Standard entry", price: 95 }, { name: "VIP", desc: "VIP area + lounge", price: 195 }] },
+            { id: 5, title: "Jazz in the Park", artist: "Wynton Marsalis", genre: "Jazz", month: "Jun", day: "14", date: "Jun 14, 2025", venue: "Hyde Park, London", basePrice: 55, currency: "£", avail: "Available", availKey: "available", tiers: [{ name: "Lawn", desc: "Open lawn standing", price: 55 }, { name: "Deckchair", desc: "Reserved deckchair", price: 90 }, { name: "Hospitality", desc: "Table service + champagne", price: 175 }] },
+            { id: 6, title: "Parklife", artist: "Ice Spice & More", genre: "Pop / R&B", month: "Jun", day: "07", date: "Jun 7, 2025", venue: "Heaton Park, Manchester", basePrice: 99, currency: "£", avail: "Few left", availKey: "low", tiers: [{ name: "Saturday", desc: "1-day Sat ticket", price: 99 }, { name: "Sunday", desc: "1-day Sun ticket", price: 99 }, { name: "Weekend", desc: "Both days", price: 169 }] },
+            { id: 7, title: "Download Festival", artist: "Metallica & More", genre: "Rock / Alt", month: "Jun", day: "12", date: "Jun 12, 2025", venue: "Donington Park, Derby", basePrice: 199, currency: "£", avail: "Available", availKey: "available", tiers: [{ name: "Weekend", desc: "3-day camping", price: 199 }, { name: "VIP Weekend", desc: "VIP camping + lounge", price: 349 }] },
+            { id: 8, title: "Notting Hill Carnival", artist: "Various Sound Systems", genre: "Afrobeats", month: "Aug", day: "25", date: "Aug 25, 2025", venue: "Notting Hill, London", basePrice: 0, currency: "£", avail: "Available", availKey: "available", tiers: [{ name: "Free Entry", desc: "Open public event", price: 0 }, { name: "VIP Enclosure", desc: "Premium viewing area + bar", price: 45 }] },
+            { id: 9, title: "Printworks Rave", artist: "Four Tet", genre: "Electronic", month: "Sep", day: "06", date: "Sep 6, 2025", venue: "Printworks, London", basePrice: 35, currency: "£", avail: "Selling Fast", availKey: "fast", tiers: [{ name: "Standard", desc: "General entry", price: 35 }, { name: "Early Bird", desc: "Limited early bird", price: 25 }] },
+            { id: 10, title: "The Big Moon Tour", artist: "The Big Moon", genre: "Rock / Alt", month: "Oct", day: "15", date: "Oct 15, 2025", venue: "Brixton Academy, London", basePrice: 28, currency: "£", avail: "Available", availKey: "available", tiers: [{ name: "Standing", desc: "General standing", price: 28 }, { name: "Seated", desc: "Reserved balcony seat", price: 38 }] },
+            { id: 11, title: "J Hus: Live", artist: "J Hus", genre: "Afrobeats", month: "Nov", day: "08", date: "Nov 8, 2025", venue: "O2 Arena, London", basePrice: 65, currency: "£", avail: "Few left", availKey: "low", tiers: [{ name: "Floor", desc: "Standing floor", price: 65 }, { name: "Lower Tier", desc: "Seated lower bowl", price: 85 }, { name: "Upper Tier", desc: "Seated upper bowl", price: 50 }] },
+            { id: 12, title: "Arctic Monkeys", artist: "Arctic Monkeys", genre: "Rock / Alt", month: "Sep", day: "20", date: "Sep 20, 2025", venue: "Wembley Stadium, London", basePrice: 110, currency: "£", avail: "Available", availKey: "available", tiers: [{ name: "Standing Pitch", desc: "Floor standing", price: 110 }, { name: "Lower Tier", desc: "Seated", price: 125 }, { name: "Hospitality", desc: "Executive suite", price: 395 }] },
+        ];
+
+        const MONTH_ORDER = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+        let currentView = 'grid';
+        let visibleCount = 8;
+        let filteredEvents = [...ALL_EVENTS];
+        let activeModalEvent = null;
+        let selectedTierIndex = 0;
+        let qty = 1;
+
+        // ─── RENDER GENRE & MONTH FILTERS ───
+        const genres = [...new Set(ALL_EVENTS.map(e => e.genre))].sort();
+        const months = [...new Set(ALL_EVENTS.map(e => e.month))].sort((a, b) => MONTH_ORDER.indexOf(a) - MONTH_ORDER.indexOf(b));
+
+        const genreFilters = document.getElementById('genreFilters');
+        genres.forEach(g => {
+            genreFilters.innerHTML += `<label class="filter-option">
+            <input type="checkbox" class="genre-filter" value="${g}">
+            <span class="filter-box"></span>
+            <span class="filter-option-label">${g}</span>
+        </label>`;
+        });
+
+        const monthFilters = document.getElementById('monthFilters');
+        months.forEach(m => {
+            monthFilters.innerHTML += `<label class="filter-option">
+            <input type="checkbox" class="month-filter" value="${m}">
+            <span class="filter-box"></span>
+            <span class="filter-option-label">${m} 2025</span>
+        </label>`;
+        });
+
+        // ─── TICKER ───
+        const tickerItems = ALL_EVENTS.map(e => `${e.title} — ${e.date}`);
+        const track = document.getElementById('tickerTrack');
+        [...tickerItems, ...tickerItems].forEach(t => {
+            const el = document.createElement('div');
+            el.className = 'ticker-item';
+            el.innerHTML = `<span>★</span>${t}`;
+            track.appendChild(el);
+        });
+
+        // ─── APPLY FILTERS ───
+        function applyFilters() {
+            const q = document.getElementById('searchInput').value.toLowerCase().trim();
+            const selGenres = [...document.querySelectorAll('.genre-filter:checked')].map(x => x.value);
+            const selMonths = [...document.querySelectorAll('.month-filter:checked')].map(x => x.value);
+            const selAvail = [...document.querySelectorAll('.avail-filter:checked')].map(x => x.value);
+            const minP = parseFloat(document.getElementById('priceMin').value) || 0;
+            const maxP = parseFloat(document.getElementById('priceMax').value) || Infinity;
+            const sort = document.getElementById('sortSelect').value;
+
+            let result = ALL_EVENTS.filter(e => {
+                if (q && ![e.title, e.artist, e.venue, e.genre].some(s => s.toLowerCase().includes(q))) return false;
+                if (selGenres.length && !selGenres.includes(e.genre)) return false;
+                if (selMonths.length && !selMonths.includes(e.month)) return false;
+                if (selAvail.length && !selAvail.includes(e.availKey)) return false;
+                if (e.basePrice < minP || e.basePrice > maxP) return false;
+                return true;
+            });
+
+            if (sort === 'price-asc') result.sort((a, b) => a.basePrice - b.basePrice);
+            else if (sort === 'price-desc') result.sort((a, b) => b.basePrice - a.basePrice);
+            else if (sort === 'name') result.sort((a, b) => a.title.localeCompare(b.title));
+            else result.sort((a, b) => MONTH_ORDER.indexOf(a.month) - MONTH_ORDER.indexOf(b.month) || parseInt(a.day) - parseInt(b.day));
+
+            filteredEvents = result;
+            visibleCount = 8;
+            renderEvents();
+            renderActiveFilters(selGenres, selMonths, selAvail, minP, maxP === Infinity ? null : maxP);
+        }
+
+        function clearFilters() {
+            document.querySelectorAll('.genre-filter, .month-filter, .avail-filter').forEach(x => x.checked = false);
+            document.getElementById('priceMin').value = '';
+            document.getElementById('priceMax').value = '';
+            document.getElementById('searchInput').value = '';
+            document.getElementById('sortSelect').value = 'date';
+            applyFilters();
+        }
+
+        function renderActiveFilters(genres, months, avail, min, max) {
+            const wrap = document.getElementById('activeFilters');
+            wrap.innerHTML = '';
+            [...genres, ...months, ...avail].forEach(f => {
+                const chip = document.createElement('div');
+                chip.className = 'filter-chip';
+                chip.innerHTML = `${f} <span onclick="removeFilter('${f}')">×</span>`;
+                wrap.appendChild(chip);
+            });
+            if (min > 0 || max !== null) {
+                const chip = document.createElement('div');
+                chip.className = 'filter-chip';
+                const label = min > 0 && max ? `${min}–${max}` : min > 0 ? `>${min}` : `<${max}`;
+                chip.innerHTML = `Price: ${label} <span onclick="clearPrice()">×</span>`;
+                wrap.appendChild(chip);
+            }
+        }
+
+        function removeFilter(val) {
+            document.querySelectorAll(`input[value="${val}"]`).forEach(x => x.checked = false);
+            applyFilters();
+        }
+        function clearPrice() {
+            document.getElementById('priceMin').value = '';
+            document.getElementById('priceMax').value = '';
+            applyFilters();
+        }
+
+        // ─── RENDER EVENTS ───
+        function renderEvents() {
+            const container = document.getElementById('eventsContainer');
+            container.innerHTML = '';
+            document.getElementById('resultCount').textContent = filteredEvents.length;
+            document.getElementById('heroCount').textContent = ALL_EVENTS.length;
+
+            if (filteredEvents.length === 0) {
+                container.className = '';
+                container.innerHTML = `<div class="no-results">
+                <i class="fas fa-search"></i>
+                <h3>No Events Found</h3>
+                <p>Try adjusting your filters or search terms</p>
+            </div>`;
+                document.getElementById('loadMoreWrap').style.display = 'none';
+                return;
+            }
+
+            container.className = currentView === 'grid' ? 'grid-view' : 'list-view';
+
+            const slice = filteredEvents.slice(0, visibleCount);
+            slice.forEach((e, i) => {
+                const card = document.createElement('div');
+                const soldOut = e.availKey === 'sold';
+                if (currentView === 'grid') {
+                    card.className = 'event-card reveal';
+                    card.style.transitionDelay = (i % 8 * 60) + 'ms';
+                    card.innerHTML = `
+                    <div class="event-card-top">
+                        <span class="event-genre">${e.genre}</span>
+                        <span class="event-price">${e.currency}${e.basePrice === 0 ? 'Free' : e.basePrice}</span>
+                    </div>
+                    <div class="event-title">${e.title}</div>
+                    <div class="event-artist">${e.artist}</div>
+                    <div class="event-meta">
+                        <span><i class="fas fa-calendar-alt"></i>${e.date}</span>
+                        <span><i class="fas fa-map-marker-alt"></i>${e.venue}</span>
+                    </div>
+                    <div class="event-bar"></div>
+                    <div class="event-card-footer">
+                        <span class="event-avail${e.availKey === 'low' ? ' low' : ''}${e.availKey === 'fast' ? ' low' : ''}">${e.avail}</span>
+                        <button class="btn-book" onclick="openModal(${e.id})" ${soldOut ? 'disabled' : ''}>Book Now</button>
+                    </div>`;
+                } else {
+                    card.className = 'event-card list-card reveal';
+                    card.style.transitionDelay = (i % 8 * 40) + 'ms';
+                    card.innerHTML = `
+                    <div class="list-date-block">
+                        <div class="list-date-day">${e.day}</div>
+                        <div class="list-date-mon">${e.month}</div>
+                    </div>
+                    <div class="list-body">
+                        <div class="event-title">${e.title}</div>
+                        <div class="event-artist">${e.artist}</div>
+                        <div class="event-meta">
+                            <span><i class="fas fa-map-marker-alt"></i>${e.venue}</span>
+                            <span><i class="fas fa-tag"></i>${e.genre}</span>
+                        </div>
+                    </div>
+                    <div class="list-right">
+                        <span class="event-price">${e.currency}${e.basePrice === 0 ? 'Free' : e.basePrice}</span>
+                        <span class="event-avail${e.availKey === 'low' || e.availKey === 'fast' ? ' low' : ''}">${e.avail}</span>
+                        <button class="btn-book" onclick="openModal(${e.id})" ${soldOut ? 'disabled' : ''}>Book Now</button>
+                    </div>`;
+                }
+                container.appendChild(card);
+            });
+
+            // Trigger reveals
+            setTimeout(() => {
+                document.querySelectorAll('.reveal:not(.in)').forEach(el => observer.observe(el));
+            }, 50);
+
+            document.getElementById('loadMoreWrap').style.display = filteredEvents.length > visibleCount ? 'block' : 'none';
+        }
+
+        function loadMore() { visibleCount += 8; renderEvents(); }
+
+        function setView(v) {
+            currentView = v;
+            document.getElementById('btnGrid').classList.toggle('active', v === 'grid');
+            document.getElementById('btnList').classList.toggle('active', v === 'list');
+            renderEvents();
+        }
+
+        // ─── MODAL ───
+        function openModal(id) {
+            const e = ALL_EVENTS.find(x => x.id === id);
+            if (!e) return;
+            activeModalEvent = e;
+            selectedTierIndex = 0;
+            qty = 1;
+
+            document.getElementById('modalTitle').textContent = e.title;
+            document.getElementById('bookingForm').style.display = '';
+            document.getElementById('successScreen').classList.remove('show');
+
+            document.getElementById('modalInfoGrid').innerHTML = `
+            <div class="modal-info-item"><label>Date</label><p>${e.date}</p></div>
+            <div class="modal-info-item"><label>Venue</label><p>${e.venue}</p></div>
+            <div class="modal-info-item"><label>Artist</label><p>${e.artist}</p></div>
+            <div class="modal-info-item"><label>Genre</label><p>${e.genre}</p></div>`;
+
+            renderTiers();
+            updateTotal();
+            document.getElementById('qtyVal').value = 1;
+            document.getElementById('modalBackdrop').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function renderTiers() {
+            const e = activeModalEvent;
+            document.getElementById('modalTiers').innerHTML = e.tiers.map((t, i) => `
+            <div class="ticket-tier${i === selectedTierIndex ? ' selected' : ''}" onclick="selectTier(${i})">
+                <div class="tier-left">
+                    <div class="tier-radio"></div>
+                    <div>
+                        <div class="tier-name">${t.name}</div>
+                        <div class="tier-desc">${t.desc}</div>
+                    </div>
+                </div>
+                <div class="tier-price">${e.currency}${t.price === 0 ? 'Free' : t.price}</div>
+            </div>`).join('');
+        }
+
+        function selectTier(i) {
+            selectedTierIndex = i;
+            renderTiers();
+            updateTotal();
+        }
+
+        function changeQty(d) {
+            qty = Math.max(1, Math.min(10, qty + d));
+            document.getElementById('qtyVal').value = qty;
+            updateTotal();
+        }
+
+        function updateTotal() {
+            if (!activeModalEvent) return;
+            const tier = activeModalEvent.tiers[selectedTierIndex];
+            const total = tier.price * qty;
+            document.getElementById('modalTotal').textContent = total === 0 ? 'Free' : `${activeModalEvent.currency}${total}`;
+        }
+
+        function confirmBooking() {
+            const ref = 'EVT-' + Math.random().toString(36).substr(2, 8).toUpperCase();
+            document.getElementById('bookingRef').textContent = ref;
+            document.getElementById('bookingForm').style.display = 'none';
+            document.getElementById('successScreen').classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('modalBackdrop').classList.remove('open');
+            document.body.style.overflow = '';
+            activeModalEvent = null;
+        }
+
+        function handleBackdropClick(e) {
+            if (e.target === document.getElementById('modalBackdrop')) closeModal();
+        }
+
+        // ─── NAV / SCROLL ───
+        const btt = document.getElementById('btt');
+        window.addEventListener('scroll', () => {
+            btt.classList.toggle('visible', window.scrollY > 400);
+        });
+
+        const burger = document.getElementById('burger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        burger.addEventListener('click', () => {
+            burger.classList.toggle('open');
+            mobileMenu.classList.toggle('open');
+        });
+
+        // ─── REVEAL ───
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); } });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // ─── YEAR ───
+        document.getElementById('yr').textContent = new Date().getFullYear();
+
+        // ─── INIT ───
+        applyFilters();
+    </script>
+</body>
+
+</html>
