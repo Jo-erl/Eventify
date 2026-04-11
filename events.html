@@ -41,6 +41,7 @@
 
         html {
             scroll-behavior: smooth;
+            overflow-x: hidden;
         }
 
         body {
@@ -50,6 +51,7 @@
             font-size: 16px;
             line-height: 1.6;
             overflow-x: hidden;
+            width: 100%;
         }
 
         ::-webkit-scrollbar {
@@ -262,12 +264,14 @@
             letter-spacing: 8px;
             pointer-events: none;
             margin-top: 3rem;
+            overflow: hidden;
+            max-width: 100%;
         }
 
         .page-hero-inner {
             max-width: 1400px;
             margin: 0 auto;
-            padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+            padding: clamp(2rem, 6vw, 5rem) clamp(1rem, 4vw, 4rem);
             display: flex;
             align-items: flex-end;
             justify-content: space-between;
@@ -358,16 +362,30 @@
         .main-wrap {
             max-width: 1400px;
             margin: 0 auto;
-            padding: clamp(2rem, 4vw, 4rem) clamp(1.5rem, 5vw, 4rem);
+            padding: clamp(2rem, 4vw, 4rem) clamp(1rem, 4vw, 4rem);
             display: grid;
             grid-template-columns: 280px 1fr;
             gap: 2.5rem;
             align-items: start;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .main-wrap>* {
+            min-width: 0;
+            max-width: 100%;
         }
 
         @media (max-width: 1024px) {
             .main-wrap {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .main-wrap {
+                padding: 1.25rem 0.75rem;
+                gap: 1.5rem;
             }
         }
 
@@ -379,6 +397,7 @@
             flex-direction: column;
             gap: 0;
             border: 1px solid var(--c-border);
+            min-width: 0;
         }
 
         @media (max-width: 1024px) {
@@ -503,12 +522,16 @@
         .price-inputs {
             padding: 0 1.25rem 1rem;
             display: flex;
+            flex-direction: column;
             gap: 8px;
-            align-items: center;
+        }
+
+        .price-sep {
+            display: none;
         }
 
         .price-input {
-            flex: 1;
+            width: 100%;
             background: var(--c-surface2);
             border: 1px solid var(--c-border);
             color: var(--c-text);
@@ -521,11 +544,6 @@
 
         .price-input:focus {
             border-color: var(--c-accent);
-        }
-
-        .price-sep {
-            color: var(--c-muted);
-            font-size: 0.8rem;
         }
 
         .apply-btn {
@@ -554,6 +572,7 @@
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
+            min-width: 0;
         }
 
         /* ─── SEARCH + SORT BAR ─── */
@@ -562,11 +581,28 @@
             gap: 1rem;
             flex-wrap: wrap;
             align-items: center;
+            width: 100%;
+            min-width: 0;
+        }
+
+        @media (max-width: 480px) {
+            .controls-bar {
+                gap: 0.6rem;
+            }
+
+            .sort-select {
+                width: 100%;
+            }
+
+            .controls-bar>* {
+                min-width: 0;
+                max-width: 100%;
+            }
         }
 
         .search-wrap {
             flex: 1;
-            min-width: 200px;
+            min-width: 0;
             display: flex;
             align-items: center;
             border: 1px solid var(--c-border);
@@ -664,6 +700,7 @@
             display: flex;
             align-items: center;
             gap: 1rem;
+            flex-wrap: wrap;
         }
 
         .results-meta strong {
@@ -703,7 +740,7 @@
         /* ─── GRID / LIST VIEW ─── */
         #eventsContainer.grid-view {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
             gap: 1.5px;
             background: var(--c-border);
             border: 1.5px solid var(--c-border);
@@ -941,6 +978,20 @@
             }
         }
 
+        @media (max-width: 400px) {
+            .event-card {
+                padding: 1.25rem;
+            }
+
+            .event-card.list-card {
+                padding: 1rem;
+            }
+
+            .event-title {
+                font-size: 1.35rem;
+            }
+        }
+
         /* ─── NO RESULTS ─── */
         .no-results {
             text-align: center;
@@ -999,7 +1050,7 @@
             z-index: 200;
             align-items: center;
             justify-content: center;
-            padding: 2rem;
+            padding: clamp(0.5rem, 3vw, 2rem);
         }
 
         .modal-backdrop.open {
@@ -1015,6 +1066,28 @@
             animation: modalIn 0.35s var(--ease);
             max-height: 90vh;
             overflow-y: auto;
+        }
+
+        @media (max-width: 400px) {
+            .modal-header {
+                padding: 1rem;
+            }
+
+            .modal-body {
+                padding: 1rem;
+            }
+
+            .modal-footer {
+                padding: 0 1rem 1rem;
+            }
+
+            .modal-title {
+                font-size: 1.5rem;
+            }
+
+            .modal-info-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @keyframes modalIn {
@@ -1597,9 +1670,8 @@
             <div class="filter-group">
                 <div class="filter-group-label">Price Range</div>
                 <div class="price-inputs">
-                    <input type="number" class="price-input" id="priceMin" placeholder="Min" min="0">
-                    <span class="price-sep">—</span>
-                    <input type="number" class="price-input" id="priceMax" placeholder="Max" min="0">
+                    <input type="number" class="price-input" id="priceMin" placeholder="Min price" min="0">
+                    <input type="number" class="price-input" id="priceMax" placeholder="Max price" min="0">
                 </div>
             </div>
 
